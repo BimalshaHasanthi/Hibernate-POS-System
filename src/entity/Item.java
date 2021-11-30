@@ -1,12 +1,22 @@
 package entity;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import java.util.ArrayList;
+
+@Entity
 public class Item {
+    @Id
     private String itemCode;
     private String description;
     private String packSize;
     private double unitPrice;
     private int qtyOnHand;
     private double discountPercentage;
+
+    @OneToMany(mappedBy = "item")
+    private ArrayList<OrderDetail> detailList=new ArrayList<>();
 
     public Item() {
     }
@@ -20,6 +30,15 @@ public class Item {
         this.setDiscountPercentage(discountPercentage);
     }
 
+    public Item(String itemCode, String description, String packSize, double unitPrice, int qtyOnHand, double discountPercentage, ArrayList<OrderDetail> detailList) {
+        this.itemCode = itemCode;
+        this.description = description;
+        this.packSize = packSize;
+        this.unitPrice = unitPrice;
+        this.qtyOnHand = qtyOnHand;
+        this.discountPercentage = discountPercentage;
+        this.detailList = detailList;
+    }
 
     public String getItemCode() {
         return itemCode;
@@ -67,5 +86,26 @@ public class Item {
 
     public void setDiscountPercentage(double discountPercentage) {
         this.discountPercentage = discountPercentage;
+    }
+
+    public ArrayList<OrderDetail> getDetailList() {
+        return detailList;
+    }
+
+    public void setDetailList(ArrayList<OrderDetail> detailList) {
+        this.detailList = detailList;
+    }
+
+    @Override
+    public String toString() {
+        return "Item{" +
+                "itemCode='" + itemCode + '\'' +
+                ", description='" + description + '\'' +
+                ", packSize='" + packSize + '\'' +
+                ", unitPrice=" + unitPrice +
+                ", qtyOnHand=" + qtyOnHand +
+                ", discountPercentage=" + discountPercentage +
+                ", detailList=" + detailList +
+                '}';
     }
 }
